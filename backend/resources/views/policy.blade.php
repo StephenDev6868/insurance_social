@@ -25,7 +25,7 @@
             <div class="card-header text-uppercase">Các Dữ Liệu Về Điều Khoản Chính Sách</div>
             <div class="card-body">
               <label>Mô Tả</label>
-              <textarea id="editor" name="description">{{$policy['description']}}</textarea>
+              <textarea id="editor" name="description">{{optional($policy)['description']}}</textarea>
 
               <hr>
               <button type="submit" class="btn btn-gradient-primary">Cập Nhật</button>
