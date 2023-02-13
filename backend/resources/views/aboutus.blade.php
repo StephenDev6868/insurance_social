@@ -25,7 +25,7 @@
             <div class="card-header text-uppercase">Các Dữ Liệu Về Chúng Tôi</div>
             <div class="card-body">
               <label>Mô Tả</label>
-              <textarea id="editor" name="description">{{$aboutUs['description']}}
+              <textarea id="editor" name="description">{{optional($aboutUs)['description']}}
                                     </textarea>
               <hr>
               <button type="submit" class="btn btn-gradient-primary">Cập Nhật</button>

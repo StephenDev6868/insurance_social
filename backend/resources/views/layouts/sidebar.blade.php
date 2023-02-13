@@ -102,65 +102,66 @@
       <li><a href="{{url('/admin/notifies')}}"><i class="zmdi zmdi-dot-circle-alt"></i> Quản lý thông báo</a></li>
     </ul>
   </li>
-  <li>
-    <a class="has-arrow" href="javascript:void();">
-      <div class="parent-icon"> <i class='zmdi zmdi-map'></i></div>
-      <div class="menu-title">Maps</div>
-    </a>
-    <ul>
-      <li><a href="maps-google.html"><i class="zmdi zmdi-dot-circle-alt"></i> Google Maps</a></li>
-      <li><a href="maps-vector.html"><i class="zmdi zmdi-dot-circle-alt"></i> Vector Maps</a></li>
-    </ul>
-  </li>
 
-  <li>
-    <a class="has-arrow" href="javascript:void();">
-      <div class="parent-icon"> <i class='zmdi zmdi-collection-folder-image'></i></div>
-      <div class="menu-title">Sample Pages</div>
-    </a>
-    <ul>
-      <li><a href="pages-invoice.html"><i class="zmdi zmdi-dot-circle-alt"></i> Invoice</a></li>
-      <li><a href="pages-user-profile.html"><i class="zmdi zmdi-dot-circle-alt"></i> User Profile</a></li>
-      <li><a href="pages-blank-page.html"><i class="zmdi zmdi-dot-circle-alt"></i> Blank Page</a></li>
-      <li><a href="pages-coming-soon.html" target="_blank"><i class="zmdi zmdi-dot-circle-alt"></i> Coming Soon</a>
-      </li>
-      <li><a href="pages-403.html" target="_blank"><i class="zmdi zmdi-dot-circle-alt"></i> 403 Error</a></li>
-      <li><a href="pages-404.html" target="_blank"><i class="zmdi zmdi-dot-circle-alt"></i> 404 Error</a></li>
-      <li><a href="pages-500.html" target="_blank"><i class="zmdi zmdi-dot-circle-alt"></i> 500 Error</a></li>
-    </ul>
-  </li>
+{{--  <li>--}}
+{{--    <a class="has-arrow" href="javascript:void();">--}}
+{{--      <div class="parent-icon"> <i class='zmdi zmdi-map'></i></div>--}}
+{{--      <div class="menu-title">Maps</div>--}}
+{{--    </a>--}}
+{{--    <ul>--}}
+{{--      <li><a href="maps-google.html"><i class="zmdi zmdi-dot-circle-alt"></i> Google Maps</a></li>--}}
+{{--      <li><a href="maps-vector.html"><i class="zmdi zmdi-dot-circle-alt"></i> Vector Maps</a></li>--}}
+{{--    </ul>--}}
+{{--  </li>--}}
 
-  <li>
-    <a class="has-arrow" href="javascript:void();">
-      <div class="parent-icon"><i class='fa fa-share'></i></div>
-      <div class="menu-title">Menu Levels</div>
-    </a>
-    <ul>
-      <li><a class="has-arrow" href="javascript:void();"><i class='zmdi zmdi-dot-circle-alt'></i>Level One</a>
-        <ul>
-          <li><a class="has-arrow" href="#"><i class='zmdi zmdi-dot-circle-alt'></i>Level Two</a>
-            <ul>
-              <li><a href="#"><i class='zmdi zmdi-dot-circle-alt'></i>Level Three</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </li>
+{{--  <li>--}}
+{{--    <a class="has-arrow" href="javascript:void();">--}}
+{{--      <div class="parent-icon"> <i class='zmdi zmdi-collection-folder-image'></i></div>--}}
+{{--      <div class="menu-title">Sample Pages</div>--}}
+{{--    </a>--}}
+{{--    <ul>--}}
+{{--      <li><a href="pages-invoice.html"><i class="zmdi zmdi-dot-circle-alt"></i> Invoice</a></li>--}}
+{{--      <li><a href="pages-user-profile.html"><i class="zmdi zmdi-dot-circle-alt"></i> User Profile</a></li>--}}
+{{--      <li><a href="pages-blank-page.html"><i class="zmdi zmdi-dot-circle-alt"></i> Blank Page</a></li>--}}
+{{--      <li><a href="pages-coming-soon.html" target="_blank"><i class="zmdi zmdi-dot-circle-alt"></i> Coming Soon</a>--}}
+{{--      </li>--}}
+{{--      <li><a href="pages-403.html" target="_blank"><i class="zmdi zmdi-dot-circle-alt"></i> 403 Error</a></li>--}}
+{{--      <li><a href="pages-404.html" target="_blank"><i class="zmdi zmdi-dot-circle-alt"></i> 404 Error</a></li>--}}
+{{--      <li><a href="pages-500.html" target="_blank"><i class="zmdi zmdi-dot-circle-alt"></i> 500 Error</a></li>--}}
+{{--    </ul>--}}
+{{--  </li>--}}
 
-  <li class="menu-label">Labels</li>
-  <li><a href="javascript:void();">
-      <div class="parent-icon"><i class='zmdi zmdi-coffee'></i></div>
-      <div class="menu-title">Important</div>
-    </a></li>
-  <li><a href="javascript:void();">
-      <div class="parent-icon"><i class='zmdi zmdi-chart-donut'></i></div>
-      <div class="menu-title">Warning</div>
-    </a></li>
-  <li><a href="javascript:void();">
-      <div class="parent-icon"><i class='zmdi zmdi-share'></i></div>
-      <div class="menu-title">Information</div>
-    </a></li>
+{{--  <li>--}}
+{{--    <a class="has-arrow" href="javascript:void();">--}}
+{{--      <div class="parent-icon"><i class='fa fa-share'></i></div>--}}
+{{--      <div class="menu-title">Menu Levels</div>--}}
+{{--    </a>--}}
+{{--    <ul>--}}
+{{--      <li><a class="has-arrow" href="javascript:void();"><i class='zmdi zmdi-dot-circle-alt'></i>Level One</a>--}}
+{{--        <ul>--}}
+{{--          <li><a class="has-arrow" href="#"><i class='zmdi zmdi-dot-circle-alt'></i>Level Two</a>--}}
+{{--            <ul>--}}
+{{--              <li><a href="#"><i class='zmdi zmdi-dot-circle-alt'></i>Level Three</a></li>--}}
+{{--            </ul>--}}
+{{--          </li>--}}
+{{--        </ul>--}}
+{{--      </li>--}}
+{{--    </ul>--}}
+{{--  </li>--}}
+
+{{--  <li class="menu-label">Labels</li>--}}
+{{--  <li><a href="javascript:void();">--}}
+{{--      <div class="parent-icon"><i class='zmdi zmdi-coffee'></i></div>--}}
+{{--      <div class="menu-title">Important</div>--}}
+{{--    </a></li>--}}
+{{--  <li><a href="javascript:void();">--}}
+{{--      <div class="parent-icon"><i class='zmdi zmdi-chart-donut'></i></div>--}}
+{{--      <div class="menu-title">Warning</div>--}}
+{{--    </a></li>--}}
+{{--  <li><a href="javascript:void();">--}}
+{{--      <div class="parent-icon"><i class='zmdi zmdi-share'></i></div>--}}
+{{--      <div class="menu-title">Information</div>--}}
+{{--    </a></li>--}}
   </ul>
 
 </div>
