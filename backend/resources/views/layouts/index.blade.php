@@ -34,7 +34,7 @@
 
 </head>
 
-<body class="bg-theme bg-theme11">
+<body class="bg-theme bg-theme1">
 
     <!-- Start wrapper-->
     <div id="wrapper">
@@ -42,7 +42,7 @@
         <!--Start sidebar-wrapper-->
         @include('layouts.sidebar')
         <!--End sidebar-wrapper-->
-        
+
         <!--Start topbar header-->
         @include('layouts.header')
         <!--End topbar header-->
@@ -56,11 +56,11 @@
         <!--End Back To Top Button-->
 
         <!--Start footer-->
-        
+
         <!--End footer-->
 
         <!--start color switcher-->
-        
+
         <!--end color switcher-->
 
     </div>
