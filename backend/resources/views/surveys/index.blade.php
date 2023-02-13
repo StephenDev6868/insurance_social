@@ -69,7 +69,7 @@ use App\Models\Question;
 
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Tên Tiêu Đề:</label>
-                                <input type="text" class="form-control" value="{{$banner['survey_text']}}" name="survey_text" required>
+                                <input type="text" class="form-control" value="{{optional($banner)['survey_text']}}" name="survey_text" required>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Ảnh Khảo Sát</label>
@@ -77,10 +77,10 @@ use App\Models\Question;
                                     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
                                         <i class="fa fa-picture-o"></i> Choose Image
                                     </a>
-                                    <input id="thumbnail" class="form-control" value="{{$banner['survey_image']}}" type="text" name="survey_image" readonly required>
+                                    <input id="thumbnail" class="form-control" value="{{optional($banner)['survey_image']}}" type="text" name="survey_image" readonly required>
                                 </div>
                                 <div id="holder">
-                                    <img data-original="{{$banner['survey_image']}}" width="100px" height="100px">
+                                    <img data-original="{{optional($banner)['survey_image']}}" width="100px" height="100px">
                                 </div>
                             </div>
                         </div>
