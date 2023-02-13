@@ -74,54 +74,56 @@ use App\Models\Question;
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($notifies as $key => $notify)
-                                    <div class="modal fade" id="exampleModal{{$notify['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content" style="background-color:#007bff;">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Cập Nhật Thông Báo</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="{{url('/admin/edit/notify/'.$notify['id'])}}" method="POST">
-                                                    @csrf
-                                                    <div class="modal-body">
+                                    @if($notifies)
+                                        @foreach ($notifies as $key => $notify)
+                                            <div class="modal fade" id="exampleModal{{$notify['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content" style="background-color:#007bff;">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Cập Nhật Thông Báo</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="{{url('/admin/edit/notify/'.$notify['id'])}}" method="POST">
+                                                            @csrf
+                                                            <div class="modal-body">
 
-                                                        <div class="form-group">
-                                                            <label for="recipient-name" class="col-form-label">Tiêu đề:</label>
-                                                            <input type="text" name="title" value="{{$notify['title']}}" class="form-control" id="recipient-name">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="recipient-name" class="col-form-label">Mô tả:</label>
-                                                            <textarea id="editor1" name="description">{{$notify['description']}}</textarea>
-                                                        </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="col-form-label">Tiêu đề:</label>
+                                                                    <input type="text" name="title" value="{{$notify['title']}}" class="form-control" id="recipient-name">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="col-form-label">Mô tả:</label>
+                                                                    <textarea id="editor1" name="description">{{$notify['description']}}</textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Cập Nhật</button>
-                                                    </div>
-                                                </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <tr>
-                                        <td><input type="checkbox" value="{{$notify['id']}}" class="sub_ck" data-id="{{$notify['id']}}"></td>
-                                        <td>{{ ++$key }}</td>
-                                        <td>
-                                            {{ $notify['title'] }}
-                                        </td>
-                                        <td>
-                                            {{date('d/m/Y', strtotime($notify['created_at']))}}
-                                        </td>
-                                        <td style="font-size: 30px">
-                                            <center>
-                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{{$notify['id']}}" style="color:greenyellow" title="Chỉnh sửa thông báo"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="notify" recordid="{{$notify['id']}}" title="Xóa thông báo"><i class="fa fa-trash"></i></a>
-                                            </center>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                            <tr>
+                                                <td><input type="checkbox" value="{{$notify['id']}}" class="sub_ck" data-id="{{$notify['id']}}"></td>
+                                                <td>{{ ++$key }}</td>
+                                                <td>
+                                                    {{ $notify['title'] }}
+                                                </td>
+                                                <td>
+                                                    {{date('d/m/Y', strtotime($notify['created_at']))}}
+                                                </td>
+                                                <td style="font-size: 30px">
+                                                    <center>
+                                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{{$notify['id']}}" style="color:greenyellow" title="Chỉnh sửa thông báo"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                        <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="notify" recordid="{{$notify['id']}}" title="Xóa thông báo"><i class="fa fa-trash"></i></a>
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

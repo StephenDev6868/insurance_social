@@ -42,7 +42,7 @@ use App\Models\BookChapter;
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Tên Tiêu Đề:</label>
-                <input type="text" class="form-control" value="{{$banner['book_text']}}" name="book_text" required>
+                <input type="text" class="form-control" value="{{optional($banner)['book_text']}}" name="book_text" required>
               </div>
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Ảnh Sách</label>
@@ -50,10 +50,10 @@ use App\Models\BookChapter;
                   <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
                     <i class="fa fa-picture-o"></i> Choose Image
                   </a>
-                  <input id="thumbnail" class="form-control" value="{{$banner['book_image']}}" type="text" name="book_image" readonly required>
+                  <input id="thumbnail" class="form-control" value="{{optional($banner)['book_image']}}" type="text" name="book_image" readonly required>
                 </div>
                 <div id="holder">
-                  <input type="image" src="{{$banner['book_image']}}" width="100px" height="100px">
+                  <input type="image" src="{{optional($banner)['book_image']}}" width="100px" height="100px">
                 </div>
               </div>
             </div>
@@ -94,40 +94,42 @@ use App\Models\BookChapter;
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($books as $key => $book)
-                  <tr>
-                    <td><input type="checkbox" value="{{$book['id']}}" class="sub_ck" data-id="{{$book['id']}}"></td>
-                    <td>{{ ++$key }}</td>
-                    <td> <img src="{{$book['image']}}" width="100px" height="100px"></td>
-                    <td>
-                      {{ $book['title'] }}
-                    </td>
-                    <td>{{ $book['sold'] }} đã bán</td>
-                    <td>@if($book['type']==1) PDF
-                      @else Giấy
-                      @endif
-                    </td>
-                    <td style="display: none;">{!!$book['description']!!}</td>
-                    <td style="display: none;">{{$book['admin_name']}}</td>
-                    <td style="display: none;">{{$book['discount']}}</td>
-                    <td style="display: none;">{{$book['price']}}</td>
-                    <td style="display: none;">{{$book['coin']}}</td>
-                    <td style="display: none;">{{$book['price_reduce']}}</td>
-                    <td style="display: none;">{{$book['coin_reduce']}}</td>
-                    <td style="font-size: 30px">
-                      <center>
-                        @if($book['type']==1)
-                      <a href="{{ url('admin/chapters/book/' . $book['id']) }}" style="color:aqua"
-                          title="Xem các chương sách"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                  @if($books)
+                    @foreach ($books as $key => $book)
+                      <tr>
+                        <td><input type="checkbox" value="{{$book['id']}}" class="sub_ck" data-id="{{$book['id']}}"></td>
+                        <td>{{ ++$key }}</td>
+                        <td> <img src="{{$book['image']}}" width="100px" height="100px"></td>
+                        <td>
+                          {{ $book['title'] }}
+                        </td>
+                        <td>{{ $book['sold'] }} đã bán</td>
+                        <td>@if($book['type']==1) PDF
+                          @else Giấy
                           @endif
-                        <a href="{{ url('admin/edit/book/' . $book['id']) }}" style="color:greenyellow"
-                          title="Chỉnh sửa sách"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="book" recordid="{{$book['id']}}"
-                          title="Xóa sách"><i class="fa fa-trash"></i></a>
-                      </center>
-                    </td>
-                  </tr>
-                  @endforeach
+                        </td>
+                        <td style="display: none;">{!!$book['description']!!}</td>
+                        <td style="display: none;">{{$book['admin_name']}}</td>
+                        <td style="display: none;">{{$book['discount']}}</td>
+                        <td style="display: none;">{{$book['price']}}</td>
+                        <td style="display: none;">{{$book['coin']}}</td>
+                        <td style="display: none;">{{$book['price_reduce']}}</td>
+                        <td style="display: none;">{{$book['coin_reduce']}}</td>
+                        <td style="font-size: 30px">
+                          <center>
+                            @if($book['type']==1)
+                              <a href="{{ url('admin/chapters/book/' . $book['id']) }}" style="color:aqua"
+                                 title="Xem các chương sách"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                            @endif
+                            <a href="{{ url('admin/edit/book/' . $book['id']) }}" style="color:greenyellow"
+                               title="Chỉnh sửa sách"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="book" recordid="{{$book['id']}}"
+                               title="Xóa sách"><i class="fa fa-trash"></i></a>
+                          </center>
+                        </td>
+                      </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>

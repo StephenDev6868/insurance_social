@@ -23,21 +23,23 @@
                     <div class="card">
                         <div class="card-header text-uppercase">Dữ Liệu Ảnh Bìa</div>
                         <div class="card-body">
-                            
+
                             <label>Ảnh Bìa Trang Chủ</label>
                             <div class="input-group">
                                 <a id="lfm2" data-input="thumbnail2" data-preview="holder2" class="btn btn-primary text-white">
                                     <i class="fa fa-picture-o"></i> Choose Image
                                 </a>
-                                <input id="thumbnail2" class="form-control" value="{{$banner['banner_image']}}" type="text" name="banner_image[]" multiple readonly required>
+                                <input id="thumbnail2" class="form-control" value="{{optional($banner)['banner_image']}}" type="text" name="banner_image[]" multiple readonly required>
                             </div>
                             <div id="holder2">
-                                @foreach(explode(',',$banner['banner_image']) as $banner)
-                                <img data-original="{{$banner}}" width="300px" height="200px">
-                                @endforeach
+                                @if($banner)
+                                    @foreach(explode(',',$banner['banner_image']) as $banner)
+                                        <img data-original="{{$banner}}" width="300px" height="200px">
+                                    @endforeach
+                                @endif
                             </div>
                             <hr>
-                           
+
                             <button type="submit" class="btn btn-gradient-primary">Cập Nhật</button>
                         </div>
                     </div>

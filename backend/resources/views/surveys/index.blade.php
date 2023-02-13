@@ -112,51 +112,53 @@ use App\Models\Question;
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($surveys as $key => $survey)
-                                    <div class="modal fade" id="exampleModal{{$survey['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content" style="background-color:#007bff;">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Cập Nhật khảo sát</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <form action="{{url('/admin/edit/survey/'.$survey['id'])}}" method="POST">
-                                                    @csrf
-                                                    <div class="modal-body">
-
-                                                        <div class="form-group">
-                                                            <label for="recipient-name" class="col-form-label">Tiêu đề:</label>
-                                                            <input type="text" name="title" value="{{$survey['title']}}" class="form-control" id="recipient-name">
+                                    @if($surveys)
+                                        @foreach ($surveys as $key => $survey)
+                                            <div class="modal fade" id="exampleModal{{$survey['id']}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content" style="background-color:#007bff;">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Cập Nhật khảo sát</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
                                                         </div>
+                                                        <form action="{{url('/admin/edit/survey/'.$survey['id'])}}" method="POST">
+                                                            @csrf
+                                                            <div class="modal-body">
+
+                                                                <div class="form-group">
+                                                                    <label for="recipient-name" class="col-form-label">Tiêu đề:</label>
+                                                                    <input type="text" name="title" value="{{$survey['title']}}" class="form-control" id="recipient-name">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Cập Nhật</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                                                        <button type="submit" class="btn btn-primary">Cập Nhật</button>
-                                                    </div>
-                                                </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <tr>
-                                        <td><input type="checkbox" value="{{$survey['id']}}" class="sub_ck" data-id="{{$survey['id']}}"></td>
-                                        <td>{{ ++$key }}</td>
-                                        <td>
-                                            {{ $survey['title'] }}
-                                        </td>
-                                        <td>
-                                            {{count(Question::where('survey_id', $survey['id'])->get())}} câu hỏi
-                                        </td>
-                                        <td style="font-size: 30px">
-                                            <center>
-                                                <a href="{{ url('admin/questions/survey/' . $survey['id']) }}" style="color:aqua" title="Xem các câu hỏi"><i class="fa fa-plus-circle"></i></a>&nbsp;&nbsp;&nbsp;
-                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{{$survey['id']}}" style="color:greenyellow" title="Chỉnh sửa khảo sát"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                                                <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="survey" recordid="{{$survey['id']}}" title="Xóa khảo sát"><i class="fa fa-trash"></i></a>
-                                            </center>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                            <tr>
+                                                <td><input type="checkbox" value="{{$survey['id']}}" class="sub_ck" data-id="{{$survey['id']}}"></td>
+                                                <td>{{ ++$key }}</td>
+                                                <td>
+                                                    {{ $survey['title'] }}
+                                                </td>
+                                                <td>
+                                                    {{count(Question::where('survey_id', $survey['id'])->get())}} câu hỏi
+                                                </td>
+                                                <td style="font-size: 30px">
+                                                    <center>
+                                                        <a href="{{ url('admin/questions/survey/' . $survey['id']) }}" style="color:aqua" title="Xem các câu hỏi"><i class="fa fa-plus-circle"></i></a>&nbsp;&nbsp;&nbsp;
+                                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal{{$survey['id']}}" style="color:greenyellow" title="Chỉnh sửa khảo sát"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                                                        <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="survey" recordid="{{$survey['id']}}" title="Xóa khảo sát"><i class="fa fa-trash"></i></a>
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

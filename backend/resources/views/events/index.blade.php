@@ -42,23 +42,25 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($events as $key => $event)
-                  <tr>
-                    <td><input type="checkbox" value="{{$event['id']}}" class="sub_ck" data-id="{{$event['id']}}"></td>
-                    <td>{{ ++$key }}</td>
-                    <td> <img data-original="{{$event['image']}}" width="100px" height="100px"></td>
-                    <td>
-                      {{ $event['title'] }}
-                    </td>
-                    <td>{{ date('d/m/Y', strtotime($event['date'])) }}</td>
-                    <td style="font-size: 30px">
-                      <center>
-                        <a href="{{ url('admin/edit/event/' . $event['id']) }}" style="color:greenyellow" title="Chỉnh sửa sự kiện"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="event" recordid="{{$event['id']}}" title="Xóa sự kiện"><i class="fa fa-trash"></i></a>
-                      </center>
-                    </td>
-                  </tr>
-                  @endforeach
+                  @if($events)
+                    @foreach ($events as $key => $event)
+                      <tr>
+                        <td><input type="checkbox" value="{{$event['id']}}" class="sub_ck" data-id="{{$event['id']}}"></td>
+                        <td>{{ ++$key }}</td>
+                        <td> <img data-original="{{$event['image']}}" width="100px" height="100px"></td>
+                        <td>
+                          {{ $event['title'] }}
+                        </td>
+                        <td>{{ date('d/m/Y', strtotime($event['date'])) }}</td>
+                        <td style="font-size: 30px">
+                          <center>
+                            <a href="{{ url('admin/edit/event/' . $event['id']) }}" style="color:greenyellow" title="Chỉnh sửa sự kiện"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="event" recordid="{{$event['id']}}" title="Xóa sự kiện"><i class="fa fa-trash"></i></a>
+                          </center>
+                        </td>
+                      </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>

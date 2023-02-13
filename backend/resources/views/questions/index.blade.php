@@ -41,22 +41,24 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($questions as $key => $question)
-                  <tr>
-                    <td><input type="checkbox" value="{{$question['id']}}" class="sub_ck" data-id="{{$question['id']}}"></td>
-                    <td>{{ ++$key }}</td>
-                    <td> {{$question['question']}}</td>
-                    <td>{{ date('d/m/Y', strtotime($question['created_at'])) }}</td>
-                    <td style="font-size: 30px">
-                      <center>
-                        <a href="{{ url('admin/edit/question/' . $question['id'].'/survey/'.$id) }}" style="color:greenyellow"
-                          title="Chỉnh sửa Câu Hỏi"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="question" recordid="{{$question['id']}}"
-                          title="Xóa Câu Hỏi"><i class="fa fa-trash"></i></a>
-                      </center>
-                    </td>
-                  </tr>
-                  @endforeach
+                  @if($questions)
+                    @foreach ($questions as $key => $question)
+                      <tr>
+                        <td><input type="checkbox" value="{{$question['id']}}" class="sub_ck" data-id="{{$question['id']}}"></td>
+                        <td>{{ ++$key }}</td>
+                        <td> {{$question['question']}}</td>
+                        <td>{{ date('d/m/Y', strtotime($question['created_at'])) }}</td>
+                        <td style="font-size: 30px">
+                          <center>
+                            <a href="{{ url('admin/edit/question/' . $question['id'].'/survey/'.$id) }}" style="color:greenyellow"
+                               title="Chỉnh sửa Câu Hỏi"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="question" recordid="{{$question['id']}}"
+                               title="Xóa Câu Hỏi"><i class="fa fa-trash"></i></a>
+                          </center>
+                        </td>
+                      </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>

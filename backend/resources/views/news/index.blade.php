@@ -44,27 +44,29 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($news as $key => $news)
-                  <tr>
-                    <td><input type="checkbox" class="sub_ck" data-id="{{$news['id']}}" value="{{$news['id']}}"></td>
-                    <td>{{ ++$key }}</td>
-                    <td>
-                      {{ $news['title'] }}
-                    </td>
+                  @if($news)
+                    @foreach ($news as $key => $news)
+                      <tr>
+                        <td><input type="checkbox" class="sub_ck" data-id="{{$news['id']}}" value="{{$news['id']}}"></td>
+                        <td>{{ ++$key }}</td>
+                        <td>
+                          {{ $news['title'] }}
+                        </td>
 
-                    <td> <img data-original="{{$news['image']}}" width="100px" height="100px"></td>
+                        <td> <img data-original="{{$news['image']}}" width="100px" height="100px"></td>
 
-                    <td>{{ date('d/m/Y',strtotime($news['created_at'])) }}</td>
-                    <td style="font-size: 30px">
-                      <center>
-                        <a href="{{ url('admin/edit/news/' . $news['id']) }}" style="color: greenyellow"
-                          title="Chỉnh sửa tin tức"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="news" recordid="{{$news['id']}}
+                        <td>{{ date('d/m/Y',strtotime($news['created_at'])) }}</td>
+                        <td style="font-size: 30px">
+                          <center>
+                            <a href="{{ url('admin/edit/news/' . $news['id']) }}" style="color: greenyellow"
+                               title="Chỉnh sửa tin tức"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="news" recordid="{{$news['id']}}
                           title=" Xóa tin tức"><i class="fa fa-trash"></i></a>
-                      </center>
-                    </td>
-                  </tr>
-                  @endforeach
+                          </center>
+                        </td>
+                      </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>

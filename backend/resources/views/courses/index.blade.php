@@ -40,7 +40,7 @@
 
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Tên Tiêu Đề:</label>
-                <input type="text" class="form-control" value="{{$banner['course_text']}}" name="course_text" required>
+                <input type="text" class="form-control" value="{{optional($banner)['course_text']}}" name="course_text" required>
               </div>
               <div class="form-group">
                 <label for="recipient-name" class="col-form-label">Ảnh Khóa Học</label>
@@ -48,10 +48,10 @@
                   <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
                     <i class="fa fa-picture-o"></i> Choose Image
                   </a>
-                  <input id="thumbnail" class="form-control" value="{{$banner['course_image']}}" type="text" name="course_image" readonly required>
+                  <input id="thumbnail" class="form-control" value="{{optional($banner)['course_image']}}" type="text" name="course_image" readonly required>
                 </div>
                 <div id="holder">
-                  <input type="image" src="{{$banner['course_image']}}" width="100px" height="100px">
+                  <input type="image" src="{{optional($banner)['course_image']}}" width="100px" height="100px">
                 </div>
               </div>
             </div>
@@ -95,44 +95,46 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($courses as $key => $course)
-                  <tr>
-                    <td><input type="checkbox" value="{{$course['id']}}" class="sub_ck" data-id="{{$course['id']}}"></td>
-                    <td>{{ ++$key }}</td>
-                    <td> <img data-original="{{$course['image']}}" width="100px" height="100px"></td>
-                    <td>
-                      {{ $course['title'] }}
-                    </td>
+                  @if($courses)
+                    @foreach ($courses as $key => $course)
+                      <tr>
+                        <td><input type="checkbox" value="{{$course['id']}}" class="sub_ck" data-id="{{$course['id']}}"></td>
+                        <td>{{ ++$key }}</td>
+                        <td> <img data-original="{{$course['image']}}" width="100px" height="100px"></td>
+                        <td>
+                          {{ $course['title'] }}
+                        </td>
 
 
-                    <td>{{ $course['sold'] }} đã bán</td>
-                    <td>@if($course['type']==0)
+                        <td>{{ $course['sold'] }} đã bán</td>
+                        <td>@if($course['type']==0)
                             Offline-Meet
-                        @else
+                          @else
                             Online-Video
-                        @endif
-                    </td>
-                    <td>{{ date('d/m/Y', strtotime($course['created_at'])) }}</td>
-                    <td style="display: none;">{!!$course['description']!!}</td>
-                    <td style="display: none;">{{$course['admin_name']}}</td>
-                    <td style="display: none;">{{$course['view']}}</td>
-                    <td style="display: none;">{{$course['discount']}}</td>
-                    <td style="display: none;">{{$course['price']}}</td>
-                    <td style="display: none;">{{$course['coin']}}</td>
-                    <td style="display: none;">{{$course['price_reduce']}}</td>
-                    <td style="display: none;">{{$course['coin_reduce']}}</td>
-                    <td style="font-size: 30px">
-                      <center>
-                        @if($course['type']==1)
-                      <a href="{{ url('admin/videos/course/' . $course['id']) }}" style="color:aqua"
-                          title="Xem các video"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
                           @endif
-                        <a href="{{ url('admin/edit/course/' . $course['id']) }}" style="color:greenyellow" title="Chỉnh sửa khóa học"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
-                        <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="course" recordid="{{$course['id']}}" title="Xóa khóa học"><i class="fa fa-trash"></i></a>
-                      </center>
-                    </td>
-                  </tr>
-                  @endforeach
+                        </td>
+                        <td>{{ date('d/m/Y', strtotime($course['created_at'])) }}</td>
+                        <td style="display: none;">{!!$course['description']!!}</td>
+                        <td style="display: none;">{{$course['admin_name']}}</td>
+                        <td style="display: none;">{{$course['view']}}</td>
+                        <td style="display: none;">{{$course['discount']}}</td>
+                        <td style="display: none;">{{$course['price']}}</td>
+                        <td style="display: none;">{{$course['coin']}}</td>
+                        <td style="display: none;">{{$course['price_reduce']}}</td>
+                        <td style="display: none;">{{$course['coin_reduce']}}</td>
+                        <td style="font-size: 30px">
+                          <center>
+                            @if($course['type']==1)
+                              <a href="{{ url('admin/videos/course/' . $course['id']) }}" style="color:aqua"
+                                 title="Xem các video"><i class="fa fa-eye"></i></a>&nbsp;&nbsp;&nbsp;
+                            @endif
+                            <a href="{{ url('admin/edit/course/' . $course['id']) }}" style="color:greenyellow" title="Chỉnh sửa khóa học"><i class="fa fa-edit"></i></a>&nbsp;&nbsp;&nbsp;
+                            <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="course" recordid="{{$course['id']}}" title="Xóa khóa học"><i class="fa fa-trash"></i></a>
+                          </center>
+                        </td>
+                      </tr>
+                    @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>

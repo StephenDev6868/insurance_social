@@ -19,7 +19,7 @@
                         Cập Nhật Ảnh Đăng Ký</a>
                     <button type="submit" class="btn btn-facebook waves-effect waves-light delete-all" record="users"><i class="fa fa-minus mr-1"></i>Xóa
                         Mục Chọn</button>
-                    
+
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
 
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Tên Tiêu Đề:</label>
-                                <input type="text" class="form-control" value="{{$banner['register_text']}}" name="register_text" required>
+                                <input type="text" class="form-control" value="{{optional($banner)['register_text']}}" name="register_text" required>
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Ảnh Đăng Ký</label>
@@ -46,10 +46,10 @@
                                     <a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary text-white">
                                         <i class="fa fa-picture-o"></i> Choose Image
                                     </a>
-                                    <input id="thumbnail" class="form-control" value="{{$banner['register_image']}}" type="text" name="register_image" readonly required>
+                                    <input id="thumbnail" class="form-control" value="{{optional($banner)['register_image']}}" type="text" name="register_image" readonly required>
                                 </div>
                                 <div id="holder">
-                                    <input type="image" src="{{$banner['register_image']}}" width="100px" height="100px">
+                                    <input type="image" src="{{optional($banner)['register_image']}}" width="100px" height="100px">
                                 </div>
                             </div>
                         </div>
@@ -82,22 +82,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $key => $user)
-                                    <tr>
-                                        <td><input type="checkbox" value="{{$user['id']}}" class="sub_ck" data-id="{{$user['id']}}"></td>
-                                        <td>{{ ++$key }}</td>
-                                        <td>{{$user['name']}}</td>
-                                        <td>
-                                            {{ $user['email'] }}
-                                        </td>
-                                        <td>{{ $user['type'] }}</td>
-                                        <td style="font-size: 30px">
-                                            <center>
-                                                <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="user" recordid="{{$user['id']}}" title="Xóa người dùng"><i class="fa fa-trash"></i></a>
-                                            </center>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                    @if($users)
+                                        @foreach ($users as $key => $user)
+                                            <tr>
+                                                <td><input type="checkbox" value="{{$user['id']}}" class="sub_ck" data-id="{{$user['id']}}"></td>
+                                                <td>{{ ++$key }}</td>
+                                                <td>{{$user['name']}}</td>
+                                                <td>
+                                                    {{ $user['email'] }}
+                                                </td>
+                                                <td>{{ $user['type'] }}</td>
+                                                <td style="font-size: 30px">
+                                                    <center>
+                                                        <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="user" recordid="{{$user['id']}}" title="Xóa người dùng"><i class="fa fa-trash"></i></a>
+                                                    </center>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
