@@ -30,7 +30,7 @@
   <link href="assets/css/app-style.css" rel="stylesheet" />
 </head>
 
-<body class="bg-theme bg-theme11">
+<body class="bg-theme bg-theme1">
 
   <!-- Start wrapper-->
   <div id="wrapper">
@@ -85,7 +85,7 @@
                                 <i class="fa fa-picture-o"></i> Choose
                               </a>
                             <input id="thumbnail2" class="form-control" type="text" name="image" value="{{Auth::guard('admin')->user()->image}}" readonly required>
-                          </div>  
+                          </div>
                           <div id="holder2"></div>
                         </div>
                       </div>

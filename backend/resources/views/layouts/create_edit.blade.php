@@ -48,7 +48,7 @@
     <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.css" media="all" rel="stylesheet" type="text/css" />
 </head>
 
-<body class="bg-theme bg-theme11">
+<body class="bg-theme bg-theme1">
 
     <!-- Start wrapper-->
     <div id="wrapper">

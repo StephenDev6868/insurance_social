@@ -33,7 +33,7 @@
 
 </head>
 
-<body class="bg-theme bg-theme11">
+<body class="bg-theme bg-theme1">
 
   <!-- Start wrapper-->
   <div id="wrapper">
@@ -107,7 +107,7 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="//cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
   <script>
-    
+
     var options = {
                 filebrowserImageBrowseUrl: 'admin/laravel-filemanager?type=undefined',
                 filebrowserImageUploadUrl: 'admin/laravel-filemanager?type=undefined',
