@@ -49,7 +49,7 @@ return [
         'file'  => [
             'folder_name'  => 'files',
             'startup_view' => 'list',
-            'max_size'     => 50000, // size in KB
+            'max_size'     => 600000, // size in KB
             'thumb' => true,
             'thumb_width' => 80,
             'thumb_height' => 80,
@@ -67,7 +67,7 @@ return [
         'image' => [
             'folder_name'  => 'photos',
             'startup_view' => 'grid',
-            'max_size'     => 50000, // size in KB
+            'max_size'     => 600000, // size in KB
             'thumb' => true,
             'thumb_width' => 80,
             'thumb_height' => 80,
@@ -175,7 +175,7 @@ return [
     | Please note that the 'upload_max_filesize' & 'post_max_size'
     | directives are not supported.
      */
-    "upload_max_filesize=M",
+    "upload_max_filesize=50M",
     'php_ini_overrides'        => [
         'memory_limit' => '256M',
     ],
