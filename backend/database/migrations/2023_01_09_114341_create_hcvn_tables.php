@@ -13,6 +13,7 @@ class CreateHcvnTables extends Migration
      */
     public function up()
     {
+        return;
         $tableNames = config('hanhchinhvn.table_names');
 
         if (empty($tableNames)) {
@@ -62,6 +63,7 @@ class CreateHcvnTables extends Migration
      */
     public function down()
     {
+        return;
         $tableNames = config('hanhchinhvn.table_names');
 
         if (empty($tableNames)) {
