@@ -49,7 +49,7 @@ Route::namespace('Api')->group(function(){
     Route::get('/surveys', 'SurveyController@index');
     Route::post('/send-survey', 'SurveyController@sendSurvey');
 
-        
+
     Route::get('/questions/survey', 'SurveyController@questions');
 
     Route::get('/notifies', 'NotifyController@index');
@@ -57,12 +57,15 @@ Route::namespace('Api')->group(function(){
     Route::match(['get','post'],'/profile', 'UserController@profile');
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/logout', 'UserController@logout');
-        
-        
-        Route::post('/buy/course', 'CourseController@buyCourse');
-        Route::post('/buy/book', 'BookController@buyBook');
-        
-        
         Route::post('/register-professional', 'UserController@registerProfessional');
+
+        Route::post('/add-cart/course', [\App\Http\Controllers\Api\CourseController::class, 'buyCourse']);
+        Route::get('/list/course', [\App\Http\Controllers\Api\CourseController::class, 'list']);
+        Route::post('/create/course', [\App\Http\Controllers\Api\CourseController::class, 'create']);
+        Route::post( '/edit/course/{id}', [\App\Http\Controllers\Api\CourseController::class, 'edit']);
+        Route::get( '/detail/course/{course}', [\App\Http\Controllers\Api\CourseController::class, 'detail']);
+        Route::delete( '/delete/course/{course}', [\App\Http\Controllers\Api\CourseController::class, 'delete']);
+
+        Route::post('/add-cart/book', [\App\Http\Controllers\Api\BookController::class, 'buyBook']);
     });
 });

@@ -33,7 +33,7 @@ class CourseController extends Controller
         ALert::error('Lỗi', $validator->errors()->first());
         return redirect()->back();
       } else {
-        
+
         if(count(Category::where('id',$data['category_id'])->get())==0){
           $category=Category::create(['name'=>ucfirst(strtolower($data['category_id']))]);
           $data['category_id']=$category['id'];
@@ -66,7 +66,7 @@ class CourseController extends Controller
         ALert::error('Lỗi', $validator->errors()->first());
         return redirect()->back();
       } else {
-        
+
         if(count(Category::where('id',$data['category_id'])->get())==0){
           $category=Category::create(['name'=>ucfirst(strtolower($data['category_id']))]);
           $data['category_id']=$category['id'];

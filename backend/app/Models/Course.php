@@ -27,7 +27,9 @@ class Course extends Model
     'opening_date',
     'application',
     'password',
-    'link'
+    'link',
+    'creator_id',
+    'creator_name',
   ];
   public function courseVideo(){
     return $this->hasMany('App\Models\VideoCourse', 'course_id', 'id');

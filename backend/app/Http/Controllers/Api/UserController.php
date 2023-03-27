@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use App\Models\Notify;
 use Laravel\Sanctum\PersonalAccessToken;
 use Illuminate\Support\Facades\File;
+use App\Services\Upload\UploadService;
 
 class UserController extends Controller
 {
@@ -40,7 +41,7 @@ class UserController extends Controller
             if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
                 $user = User::find(Auth::user()->id);
                 if ($user['check'] == 0) {
-                    return response()->json(['statusCode' => 404, 'message' => 'User not found']);
+                    return response()->json(['statusCode' => 400, 'message' => 'Tài khoản chưa được admin duyệt']);
                 } else {
                     $token =  $user->createToken('MyApp')->accessToken;
                     $user->update(['token' => $token]);
@@ -54,7 +55,6 @@ class UserController extends Controller
 
     public function logout(Request $request)
     {
-        // PersonalAccessToken::findToken($request->bearerToken)->delete();
         Auth::user()->token()->revoke();
         return response()->json(['statusCode' => 200, 'message' => 'Đăng xuất thành công']);
     }
@@ -64,12 +64,14 @@ class UserController extends Controller
         if (User::where('email', $data['email'])->where('check', 1)->count() > 0) {
             $validator = Validator::make($data, [
                 'email' => 'email|unique:users,email',
-                'mobile'=>'numeric|regex:/(01)[0-9]{9}/|unique:users,mobile'
+                //'mobile'=>'numeric|regex:/(01)[0-9]{9}/|unique:users,mobile'
+                'mobile'=>'numeric|unique:users,mobile'
             ]);
         } else {
             $validator = Validator::make($data, [
                 'email' => 'email',
-                'mobile'=>'numeric|regex:/(01)[0-9]{9}/'
+                'mobile'=>'numeric|unique:users,mobile'
+                //'mobile'=>'numeric|regex:/(01)[0-9]{9}/'
             ]);
         }
         if ($validator->fails()) {
@@ -86,7 +88,16 @@ class UserController extends Controller
                     $user = User::where('email', $data['email'])->first();
                     $user->update($data);
                 } else {
-                   
+                    if ($data['type'] != 1) {
+                        if ($request->hasFile('front_image') || $request->hasFile('back_image')) {
+                            $front_image = $request->file('front_image');
+                            $back_image= $request->file('back_image');
+                            $front_reimage = UploadService::upload('user', $front_image);
+                            $back_reimage = UploadService::upload('user', $back_image);
+                            $data['front_image'] = $front_reimage;
+                            $data['back_image'] = $back_reimage;
+                        }
+                    }
                     $user = User::create($data);
                 }
                 // $token =  $user->createToken('MyApp')->accessToken;
@@ -96,8 +107,7 @@ class UserController extends Controller
                     "otp" => $otp
                 ];
                 $user->update(['otp' => $otp]);
-                Mail::to($data['email'])->send(new \App\Mail\SendMail($mailData));
-
+                $result =  Mail::to($data['email'])->send(new \App\Mail\SendMail($mailData));
                 return response()->json(['statusCode' => 200, 'message' => 'Send OTP Successfully']);
             }
         }
@@ -204,8 +214,35 @@ class UserController extends Controller
     public function registerProfessional(Request $request)
     {
         $data = $request->all();
-        $user = User::find(Auth::user()->id);
-        $user->update(['type' => $data['type']]);
+        $userInfo = Auth::user();
+        $user = User::find($userInfo->id);
+        if ($data['type'] == 1) {
+            return response()->json(['statusCode' => 400, 'message' => 'Đang là tài khoản thường']);
+        }
+        if ($data['type'] == 2 || $data['type'] == 3) {
+            if ($request->hasFile('front_image') || $request->hasFile('back_image')) {
+                $front_image = $request->file('front_image');
+                $back_image= $request->file('back_image');
+                $front_reimage = UploadService::upload('user', $front_image);
+                $back_reimage = UploadService::upload('user', $back_image);
+                $data['front_image'] = $front_reimage;
+                $data['back_image'] = $back_reimage;
+            }
+
+            if ($request->hasFile('certificate_file')) {
+                $certificate_file = $request->file('certificate_file');
+                $certificate_reimage = UploadService::upload('certificate', $certificate_file);
+                $data['certificate_file'] = $certificate_reimage;
+            }
+        }
+
+        $user->update([
+            'type' => $data['type'],
+            'check' => 0,
+            'front_image' => $data['front_image'] ?? '',
+            'back_image' => $data['back_image'] ?? '',
+            'certificate_file' => $data['certificate_file'] ?? '',
+        ]);
         return response()->json(['statusCode' => 200, 'message' => 'Cập nhật chuyên gia thành công']);
     }
 }

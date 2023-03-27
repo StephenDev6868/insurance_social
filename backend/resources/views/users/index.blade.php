@@ -77,8 +77,10 @@
                                         <th>#</th>
                                         <th>Tên</th>
                                         <th>Email</th>
+                                        <th>Ảnh Trước</th>
+                                        <th>Ảnh Sau</th>
                                         <th>Loại tài khoản</th>
-                                        <th>Tình trạng</th>
+                                        <th>Thao tác</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -91,7 +93,21 @@
                                                 <td>
                                                     {{ $user['email'] }}
                                                 </td>
-                                                <td>{{ $user['type'] }}</td>
+                                                <td>
+                                                    <img class="w-100" src="{{ asset('upload/user/' . $user['front_image'])}}">
+                                                </td>
+                                                <td>
+                                                    <img class="w-100" src="{{  asset('upload/user/' .  $user['back_image']) }}">
+                                                </td>
+                                                <td>
+                                                    @if($user['type'] == 1)
+                                                        <p>Tài khoản thường</p>
+                                                    @elseif($user['type'] == 2)
+                                                        <p>Tài khoản đối tác</p>
+                                                    @else
+                                                        <p>Tài khoản chuyên gia</p>
+                                                    @endif
+                                                </td>
                                                 <td style="font-size: 30px">
                                                     <center>
                                                         <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="user" recordid="{{$user['id']}}" title="Xóa người dùng"><i class="fa fa-trash"></i></a>

@@ -33,7 +33,11 @@ class User extends Authenticatable
         'price',
         'coin',
         'check',
-        'image'
+        'image',
+        'front_image',
+        'back_image',
+        'back_image',
+        'certificate_file',
     ];
 
     /**

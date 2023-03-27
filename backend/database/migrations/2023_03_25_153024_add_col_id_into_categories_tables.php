@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNotifyUsersTable extends Migration
+class AddColIdIntoCategoriesTables extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateNotifyUsersTable extends Migration
      */
     public function up()
     {
-        return;
-        Schema::create('notify_users', function (Blueprint $table) {
+        Schema::table('categories', function (Blueprint $table){
             $table->id();
-            $table->text('notify_id')->nullable();
-            $table->text('user_id')->nullable();
-            $table->tinyInteger('check')->default(0);
-            $table->timestamps();
         });
     }
 
@@ -30,6 +25,8 @@ class CreateNotifyUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notify_users');
+        Schema::table('categories', function (Blueprint $table){
+            $table->dropColumn('id');
+        });
     }
 }
