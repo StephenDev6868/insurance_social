@@ -61,7 +61,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $data = $request->all();
-        if (User::where('email', $data['email'])->where('check', 1)->count() > 0) {
+        if (User::where('email', $data['email'] ?? '')->where('check', 1)->count() > 0) {
             $validator = Validator::make($data, [
                 'email' => 'email|unique:users,email',
                 //'mobile'=>'numeric|regex:/(01)[0-9]{9}/|unique:users,mobile'
