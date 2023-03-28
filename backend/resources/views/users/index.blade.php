@@ -110,6 +110,7 @@
                                                 </td>
                                                 <td style="font-size: 30px">
                                                     <center>
+                                                        <a href="{{ url('admin/detail/user/' . $user['id']) }}" style="color:greenyellow" title="Chỉnh sửa user"><i class="fa fa-edit"></i></a>
                                                         <a href="javascript:void(0)" style="color: red" class="confirmdelete" record="user" recordid="{{$user['id']}}" title="Xóa người dùng"><i class="fa fa-trash"></i></a>
                                                     </center>
                                                 </td>

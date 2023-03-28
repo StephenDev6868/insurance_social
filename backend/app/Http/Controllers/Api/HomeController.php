@@ -28,7 +28,7 @@ function charlimit($string, $limit) {
 }
 class HomeController extends Controller
 {
-    
+
     public function pagination($items, $perPage = 20, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
@@ -47,11 +47,19 @@ class HomeController extends Controller
         //     $count_cart=0;
         // }
         $banner=Banner::first();
-        $banner['banner_image']=explode(",",$banner['banner_image']);
+        $banner['banner_image']=explode("|||",$banner['banner_image']);
+        $banner['banner_link']=explode("|||",$banner['banner_link']);
         $courses=Course::orderBy('sold', 'desc')->limit(6)->get();
         $courses_new=array();
         foreach($courses as $course){
-            array_push($courses_new, ['id'=>$course['id'],'admin_name'=>Admin::find($course['admin_id'])->name, 'course_image'=>$course['image'], 'admin_image'=>Admin::find($course['admin_id'])->image,  'sold'=>$course['sold'], 'opening_date'=>isset($course['opening_date'])?date('d/m/Y', strtotime($course['opening_date'])):date('d/m/Y', strtotime($course['created_at'])), 'title'=>$course['title'], 'type'=>$course['type'], 'bought'=>0]);
+            array_push($courses_new,
+                ['id'=>$course['id'],
+                'admin_name'=> optional(Admin::find($course['admin_id']))->name,
+                'course_image'=>$course['image'],
+                'admin_image'=> optional(Admin::find($course['admin_id']))->image,
+                'sold'=>$course['sold'],
+                'opening_date'=>isset($course['opening_date'])?date('d/m/Y', strtotime($course['opening_date'])):date('d/m/Y', strtotime($course['created_at'])),
+                'title'=>$course['title'], 'type'=>$course['type'], 'bought'=>0]);
         }
         $books=Book::orderBy('sold', 'desc')->limit(6)->get();
         $books_new=array();
@@ -62,7 +70,7 @@ class HomeController extends Controller
         foreach($news as $new){
             $new['description']=html_entity_decode($new['description']);
         }
-        $event=Event::orderBy('id', 'desc')->limit(1)->first();
+        $event=Event::orderBy('id', 'desc')->get();
         return response()->json(['statusCode'=>200, 'data'=>['banner'=>$banner, 'courses'=>$courses_new, 'books'=>$books_new, 'news'=>$news, 'event'=>$event]]);
     }
     public function search(Request $request){

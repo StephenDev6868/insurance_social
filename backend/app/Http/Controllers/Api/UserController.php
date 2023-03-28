@@ -89,6 +89,7 @@ class UserController extends Controller
                     $user->update($data);
                 } else {
                     if ($data['type'] != 1) {
+                        $data['check'] = 0;
                         if ($request->hasFile('front_image') || $request->hasFile('back_image')) {
                             $front_image = $request->file('front_image');
                             $back_image= $request->file('back_image');
@@ -96,11 +97,15 @@ class UserController extends Controller
                             $back_reimage = UploadService::upload('user', $back_image);
                             $data['front_image'] = $front_reimage;
                             $data['back_image'] = $back_reimage;
+                        } else {
+                            return response()->json(['statusCode' => 422, 'message' => 'Vui lòng tải ảnh cccd/cmnd của bạn để admin phê duyệt']);
+                        }
+                        if ($data['type'] == 3 && !$request->hasFile('certificate_file')) {
+                            return response()->json(['statusCode' => 422, 'message' => 'Vui lòng tải file chứng chỉ của bạn để admin phê duyệt']);
                         }
                     }
                     $user = User::create($data);
                 }
-                // $token =  $user->createToken('MyApp')->accessToken;
                 $otp = rand(100000, 999999);
                 $mailData = [
                     "name" => $user['name'],

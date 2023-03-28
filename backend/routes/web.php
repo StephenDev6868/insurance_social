@@ -66,6 +66,9 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::get('/delete-all/questions', 'QuestionController@deleteAll');
     //Users
     Route::get('/users', 'UserController@index');
+    Route::get('/detail/user/{user}', [App\Http\Controllers\Admin\UserController::class, 'detail']);
+    Route::put('/edit/user/{user}', [App\Http\Controllers\Admin\UserController::class, 'edit']);
+    Route::post('/edit/user/check/{user}', [App\Http\Controllers\Admin\UserController::class, 'checkAccountValid']);
     Route::get('/delete/user/{id}', 'UserController@delete');
     Route::get('/delete-all/users', 'UserController@deleteAll');
     //Events
