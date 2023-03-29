@@ -27,6 +27,7 @@ Route::namespace('Api')->group(function(){
     Route::post('/change-password', 'UserController@changePassword');
     //Home
     Route::get('/home', 'HomeController@index');
+    Route::get('/list-category', 'HomeController@listCategory');
     Route::post('/search', 'HomeController@search');
     Route::match(['get','post'],'/filter', 'HomeController@filter');
     Route::get('/about-us', 'HomeController@aboutUs');
@@ -36,15 +37,16 @@ Route::namespace('Api')->group(function(){
     Route::get('/wards', 'HomeController@wards');
     //Courses
     Route::get('/courses', 'CourseController@index');
-    Route::get('/detail/course', 'CourseController@detail');
+    Route::get( '/detail/course/{course}', [\App\Http\Controllers\Api\CourseController::class, 'detail']);
+    //Route::get('/detail/course', 'CourseController@detail');
     Route::get('/type/course', 'CourseController@typeCourse');
     //Books
     Route::get('/books', 'BookController@index');
-    Route::get('/detail/book', 'BookController@detail');
+    Route::get('/detail/book/{book}', 'BookController@detail');
     Route::post('/search/books', 'BookController@searchBooks');
     //News
     Route::get('/news', 'NewsController@index');
-    Route::get('/detail/news', 'NewsController@detail');
+    Route::get('/detail/news/{news}', 'NewsController@detail');
     //Surveys
     Route::get('/surveys', 'SurveyController@index');
     Route::post('/send-survey', 'SurveyController@sendSurvey');
@@ -55,17 +57,23 @@ Route::namespace('Api')->group(function(){
     Route::get('/notifies', 'NotifyController@index');
     Route::match(['get','post'],'/detail/notify', 'NotifyController@detail');
     Route::match(['get','post'],'/profile', 'UserController@profile');
+
+    Route::get('/list/course', [\App\Http\Controllers\Api\CourseController::class, 'list']);
+    Route::get( '/detail/course/{course}', [\App\Http\Controllers\Api\CourseController::class, 'detail']);
     Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/logout', 'UserController@logout');
         Route::post('/register-professional', 'UserController@registerProfessional');
 
         Route::post('/add-cart/course', [\App\Http\Controllers\Api\CourseController::class, 'buyCourse']);
-        Route::get('/list/course', [\App\Http\Controllers\Api\CourseController::class, 'list']);
         Route::post('/create/course', [\App\Http\Controllers\Api\CourseController::class, 'create']);
         Route::post( '/edit/course/{id}', [\App\Http\Controllers\Api\CourseController::class, 'edit']);
-        Route::get( '/detail/course/{course}', [\App\Http\Controllers\Api\CourseController::class, 'detail']);
         Route::delete( '/delete/course/{course}', [\App\Http\Controllers\Api\CourseController::class, 'delete']);
 
         Route::post('/add-cart/book', [\App\Http\Controllers\Api\BookController::class, 'buyBook']);
+
+
+        Route::get('/cart/list', [\App\Http\Controllers\Api\CartController::class, 'listCartByUser']);
+        Route::post('/cart/add', [\App\Http\Controllers\Api\CartController::class, 'add']);
+        Route::post('/cart/pay', [\App\Http\Controllers\Api\CartController::class, 'payCart']);
     });
 });

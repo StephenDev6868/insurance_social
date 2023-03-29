@@ -91,7 +91,7 @@
                     <td style="display: none;">Xu gốc</td>
                     <td style="display: none;">Giá được giảm</td>
                     <td style="display: none;">Xu được giảm</td>
-                    <th>Tình Trạng</th>
+                    <th>Hành động</th>
                   </tr>
                 </thead>
                 <tbody>

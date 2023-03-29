@@ -9,7 +9,7 @@ class UploadService
 {
     public static function upload($folder, $file)
     {
-        $file_name = $folder. '-' . Carbon::now()->timestamp.'_' . rand(10, 100000000) . '.' . $file->getClientOriginalExtension();
+        $file_name = $folder. '-' . Carbon::now()->timestamp.'_' . rand(10, 100000000) . '.' . ( $file->getClientOriginalExtension() ?? 'png' );
         if (Storage::disk('public-upload')->putFileAs($folder, $file, $file_name)) {
             return $file_name;
         }

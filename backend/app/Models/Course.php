@@ -30,6 +30,7 @@ class Course extends Model
     'link',
     'creator_id',
     'creator_name',
+     'status'
   ];
   public function courseVideo(){
     return $this->hasMany('App\Models\VideoCourse', 'course_id', 'id');

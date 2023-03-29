@@ -41,10 +41,15 @@ class BookController extends Controller
 //    }
     public function searchBooks(Request $request){
         $data=$request->all();
-        $books=Book::orWhere('title', 'like', '%'. $data['query']. '%')->orWhere('admin_name', 'like', '%'. $data['query']. '%')->orWhere('sold', 'like', '%'. $data['query']. '%')->orWhere('opening_date', 'like', '%'. date('Y-m-d', strtotime($data['query'])). '%')->get();
+        $books=Book::where('title', 'like', '%'.  ($data['query'] ?? '') . '%');
+//            ->orWhere('admin_name', 'like', '%'.  ($data['query'] ?? '') . '%')
+//            ->orWhere('sold', 'like', '%'.  ($data['query'] ?? '') . '%');
+        if (isset($data['category_id'])) {
+            $books->where('category_id', $data['category_id']);
+        }
         $books_new=array();
-        foreach($books as $book){
-            array_push($books_new, ['id'=>$book['id'],'admin_name'=>Admin::find($book['admin_id'])->name, 'book_image'=>$book['image'], 'admin_image'=>Admin::find($book['admin_id'])->image,  'sold'=>$book['sold'], 'title'=>$book['title'], 'type'=>$book['type'], 'bought'=>0]);
+        foreach($books->get() as $book){
+            $books_new[] = ['id' => $book['id'], 'admin_name' => optional(Admin::find($book['admin_id']))->name, 'book_image' => $book['image'], 'admin_image' => Admin::find($book['admin_id'])->image, 'sold' => $book['sold'], 'title' => $book['title'], 'type' => $book['type'], 'bought' => 0];
         }
         return response()->json(['statusCode'=>200, 'data'=>['books'=>$books_new]]);
     }
@@ -58,8 +63,8 @@ class BookController extends Controller
             ->toArray();
     }
 
-    public function detail(Course $course, Request $request){
-        return response()->json(['statusCode'=>200, 'data'=>['course'=>$course]]);
+    public function detail(Book $book, Request $request){
+        return response()->json(['statusCode'=>200, 'data'=>['book'=>$book]]);
     }
 
     public function create(Request $request)

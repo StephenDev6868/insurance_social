@@ -36,7 +36,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <hr>
                             <label>Ảnh</label>
                             <div class="input-group">
@@ -81,7 +81,7 @@
                                 <div class="col-6">
                                     <label>Danh Mục</label>
                                     <select class="form-control single-select" name="category_id" required>
-                                        @foreach($categories as $category)
+                                        @foreach($book_categories as $category)
                                         <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                                         @endforeach
                                     </select>
@@ -92,7 +92,7 @@
                             <div class="change-type-book">
 
                             </div>
-                            
+
 
                             <button type="submit" class="btn btn-gradient-primary">Tạo</button>
                         </div>

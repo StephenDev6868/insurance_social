@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\BookCategory;
 use App\Models\Course;
+use App\Models\CourseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -73,27 +75,36 @@ class HomeController extends Controller
         $event=Event::orderBy('id', 'desc')->get();
         return response()->json(['statusCode'=>200, 'data'=>['banner'=>$banner, 'courses'=>$courses_new, 'books'=>$books_new, 'news'=>$news, 'event'=>$event]]);
     }
+
     public function search(Request $request){
         $data=$request->all();
         if(!empty($data['category_id'])){
-            $courses=Course::where('category_id', $data['category_id'])->Where('title', 'like', '%'. $data['query']. '%')->orWhere('admin_name', 'like', '%'. $data['query']. '%')->where('category_id', $data['category_id'])->orWhere('sold', 'like', '%'. $data['query']. '%')->where('category_id', $data['category_id'])->orWhere('opening_date', 'like', '%'. date('Y-m-d', strtotime($data['query'])). '%')->where('category_id', $data['category_id'])->get();
+            $courses=Course::where('category_id', $data['category_id'])
+                ->where('title', 'like', '%'. ( ($data['query'] ?? '')  ?? ''). '%')
+                ->orWhere('admin_name', 'like', '%'. ( ($data['query'] ?? '')  ?? '') . '%')
+                ->where('category_id', $data['category_id'])
+                ->orWhere('sold', 'like', '%'. ( ($data['query'] ?? '')  ?? '') . '%')
+                ->where('category_id', $data['category_id'])
+                ->orWhere('opening_date', 'like', '%'. date('Y-m-d', strtotime(( ($data['query'] ?? '')  ?? ''))). '%')
+                ->where('category_id', $data['category_id'])
+                ->get();
         }else{
-            $courses=Course::orWhere('title', 'like', '%'. $data['query']. '%')->orWhere('admin_name', 'like', '%'. $data['query']. '%')->orWhere('sold', 'like', '%'. $data['query']. '%')->orWhere('opening_date', 'like', '%'. date('Y-m-d', strtotime($data['query'])). '%')->get();
+            $courses=Course::orWhere('title', 'like', '%'.  ($data['query'] ?? '') . '%')->orWhere('admin_name', 'like', '%'.  ($data['query'] ?? '') . '%')->orWhere('sold', 'like', '%'.  ($data['query'] ?? '') . '%')->orWhere('opening_date', 'like', '%'. date('Y-m-d', strtotime( ($data['query'] ?? '') )). '%')->get();
         }
         $courses_new=array();
         foreach($courses as $course){
-            array_push($courses_new, ['id'=>$course['id'],'admin_name'=>Admin::find($course['admin_id'])->name, 'course_image'=>$course['image'], 'admin_image'=>Admin::find($course['admin_id'])->image,  'sold'=>$course['sold'], 'opening_date'=>isset($course['opening_date'])?date('d/m/Y', strtotime($course['opening_date'])):date('d/m/Y', strtotime($course['created_at'])), 'title'=>$course['title'], 'type'=>$course['type'], 'bought'=>0]);
+            $courses_new[] = ['id' => $course['id'], 'admin_name' => optional(Admin::find($course['admin_id']))->name, 'course_image' => $course['image'], 'admin_image' => Admin::find($course['admin_id'])->image, 'sold' => $course['sold'], 'opening_date' => isset($course['opening_date']) ? date('d/m/Y', strtotime($course['opening_date'])) : date('d/m/Y', strtotime($course['created_at'])), 'title' => $course['title'], 'type' => $course['type'], 'bought' => 0];
         }
-        // $books=Book::where('title', 'like', '%'. $data['query'].'%')->orWhere('admin_name', 'like', '%'. $data['query']. '%')->orWhere('sold', 'like', '%'. $data['query']. '%')->get()->toArray();
-        // $news=News::where('title', 'like', '%'. $data['query']. '%')->orWhere('created_at', 'like', '%'. date('Y-m-d', strtotime($data['query'])). '%')->get()->toArray();
+        // $books=Book::where('title', 'like', '%'.  ($data['query'] ?? '') .'%')->orWhere('admin_name', 'like', '%'.  ($data['query'] ?? '') . '%')->orWhere('sold', 'like', '%'.  ($data['query'] ?? '') . '%')->get()->toArray();
+        // $news=News::where('title', 'like', '%'.  ($data['query'] ?? '') . '%')->orWhere('created_at', 'like', '%'. date('Y-m-d', strtotime( ($data['query'] ?? '') )). '%')->get()->toArray();
         // $alls=array_merge($courses, $books, $news);
         $data=$this->pagination($courses_new);
-        return response()->json(['statusCode'=>200, 'data'=>['count'=>count($courses),'alls'=>$data]]);
+        return response()->json(['statusCode'=>200, 'data'=>['count'=>count($courses),'data'=>$data]]);
     }
     public function filter(Request $request){
         if($request->isMethod('post')){
             $data=$request->all();
-            $courses=Course::where('category_id', $data['category_id'])->where('query', $data['query'])->get()->toArray();
+            $courses=Course::where('category_id', $data['category_id'])->where('query',  ($data['query'] ?? '') )->get()->toArray();
             $courses_new=array();
         foreach($courses as $course){
             array_push($courses_new, ['admin_name'=>Admin::find($course['admin_id'])->name, 'course_image'=>$course['image'], 'admin_image'=>Admin::find($course['admin_id'])->image,  'sold'=>$course['sold'], 'opening_date'=>date('d/m/Y', strtotime($course['opening_date'])), 'title'=>$course['title'], 'type'=>$course['type'], 'bought'=>0]);
@@ -102,7 +113,7 @@ class HomeController extends Controller
             // $news=News::where('category_id', $data['category_id'])->get()->toArray();
             // $alls=array_merge($courses, $books, $news);
             $data=$this->pagination($courses_new);
-            return response()->json(['statusCode'=>200, 'data'=>['count'=>count($courses),'alls'=>$data]]);
+            return response()->json(['statusCode'=>200, 'data'=>['count'=>count($courses),'data'=>$data]]);
         }
         return response()->json(['statusCode'=>200, 'data'=>['category'=>Category::all()]]);
     }
@@ -128,5 +139,15 @@ class HomeController extends Controller
         $districts=Province::with('districts')->find($data['city_id']);
         $wards=$districts->with('wards')->find($data['district_id']);
         return response()->json(['statusCode'=>200, 'data'=>['wards'=>$wards]]);
+    }
+
+    public function listCategory(Request $request)
+    {
+        $type = $request->input('type');
+        if ($type == 1) {
+            return response()->json(['statusCode'=>200, 'data'=>['categorys'=> CourseCategory::all()]]);
+        } else {
+            return response()->json(['statusCode'=>200, 'data'=>['categorys'=> BookCategory::all()]]);
+        }
     }
 }

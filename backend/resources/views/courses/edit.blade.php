@@ -91,13 +91,24 @@ use Carbon\Carbon;
                                 <div class="col-6">
                                     <label>Danh Mục</label>
                                     <select class="form-control single-select" name="category_id" required>
-                                        @foreach($categories as $category)
+                                        @foreach($course_categories as $category)
                                         @if($course['category_id']==$category['id'])
                                         <option value="{{ $category['id'] }}" selected>{{ $category['name'] }}</option>
                                         @else
                                         <option value="{{ $category['id'] }}">{{ $category['name'] }}</option>
                                         @endif
                                         @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-12">
+                                    <label>Admin phê duyệt</label>
+                                    <select name="status" required class="form-control type-question">
+                                        <option value="0" {{ $course['status'] == 0 ? 'selected' : '' }}>Đang chờ phê duyệt</option>
+                                        <option value="1" {{ $course['status'] == 1 ? 'selected' : '' }}>Chấp nhận</option>
+                                        <option value="2" {{ $course['status'] == 2 ? 'selected' : '' }}>Từ chối</option>
                                     </select>
                                 </div>
                             </div>

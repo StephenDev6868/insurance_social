@@ -89,7 +89,7 @@
                                 <div class="col-6">
                                     <label>Danh Mục</label>
                                     <select class="form-control single-select" name="category_id" required>
-                                        @foreach($categories as $category)
+                                        @foreach($book_categories as $category)
                                         @if($book['category_id']==$category['id'])
                                         <option value="{{ $category['id'] }}" selected>{{ $category['name'] }}</option>
                                         @else

@@ -90,7 +90,7 @@ class UserController extends Controller
                 } else {
                     if ($data['type'] != 1) {
                         $data['check'] = 0;
-                        if ($request->hasFile('front_image') || $request->hasFile('back_image')) {
+                        if ($request->hasFile('front_image') && $request->hasFile('back_image')) {
                             $front_image = $request->file('front_image');
                             $back_image= $request->file('back_image');
                             $front_reimage = UploadService::upload('user', $front_image);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\CourseCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,7 @@ class CourseController extends Controller
   public function create(Request $request)
   {
     $categories=Category::all();
+    $course_categories=CourseCategory::all();
     if ($request->isMethod('POST')) {
       $data = $request->all();
       // dd($data);
@@ -33,7 +35,6 @@ class CourseController extends Controller
         ALert::error('Lỗi', $validator->errors()->first());
         return redirect()->back();
       } else {
-
         if(count(Category::where('id',$data['category_id'])->get())==0){
           $category=Category::create(['name'=>ucfirst(strtolower($data['category_id']))]);
           $data['category_id']=$category['id'];
@@ -50,15 +51,15 @@ class CourseController extends Controller
         }
       }
     }
-    return view('courses.create', compact('categories'));
+    return view('courses.create', compact('course_categories'));
   }
   public function edit(Request $request, $id)
   {
     $course = Course::find($id);
     $categories=Category::all();
+    $course_categories=CourseCategory::all();
     if ($request->isMethod('POST')) {
       $data = $request->all();
-      // dd($data);
       $validator = Validator::make($data, [
         'image.*' => 'image|mimes:jpeg,jpg,png',
       ]);
@@ -83,7 +84,7 @@ class CourseController extends Controller
         }
       }
     }
-    return view('courses.edit', compact('course', 'categories'));
+    return view('courses.edit', compact('course', 'course_categories'));
 
   }
   public function delete(Request $request, $id)

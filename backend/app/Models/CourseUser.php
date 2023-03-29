@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class CourseUser extends Model
 {
@@ -14,6 +15,12 @@ class CourseUser extends Model
         'user_id',
         'quantity',
         'type_money',
-        'status'
+        'status',
+        'price',
     ];
+
+    public function Course() : HasOne
+    {
+        return $this->hasOne(Course::class, 'course_id', 'id');
+    }
 }

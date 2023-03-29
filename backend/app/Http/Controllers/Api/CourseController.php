@@ -31,7 +31,6 @@ class CourseController extends Controller
             return response()->json(['statusCode'=>401, 'message'=>'Bạn cần đăng nhập tài khoản để thực hiện chức năng này']);
         }
     }
-
     public function typeCourse(Request $request){
         $data=$request->all();
         $courses=Course::where('type',$data['type'])->get();
@@ -41,20 +40,25 @@ class CourseController extends Controller
         }
         return response()->json(['statusCode'=>200, 'data'=>['courses'=>$courses_new]]);
     }
-
+    /**
+     * @throws \Exception
+     */
     public function list(Request $request)
     {
-        $userInfo = Auth::user();
-        return Course::query()
-            ->where('creator_id', $userInfo->id)
-            ->get()
-            ->toArray();
+        try {
+            $userInfo = Auth::user();
+            return Course::query()
+                ->where('creator_id', $userInfo->id)
+                ->get()
+                ->toArray();
+        } catch (\Exception $exception) {
+            throw new \Exception($exception);
+        }
     }
 
     public function detail(Course $course, Request $request){
         return response()->json(['statusCode'=>200, 'data'=>['course'=>$course]]);
     }
-
     public function create(Request $request)
     {
         $data = $request->all();
@@ -70,6 +74,7 @@ class CourseController extends Controller
             }
             $data['creator_id'] = Auth::guard('api')->user()->id;
             $data['creator_name'] = Auth::guard('api')->user()->name;
+            $data['status'] = 0;
             if (isset($data['image'])) {
                 Course::create($data);
             } else {
@@ -115,8 +120,5 @@ class CourseController extends Controller
         } catch (\Exception $exception) {
             return response()->json(['statusCode'=>400, 'message' => 'Xoá khoá học không thành công']);
         }
-
-
-
     }
 }

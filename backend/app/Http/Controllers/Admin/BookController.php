@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\BookCategory;
 use Illuminate\Http\Request;
 use App\Models\Book;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,6 +21,7 @@ class BookController extends Controller
   public function create(Request $request)
   {
     $categories=Category::all();
+    $book_categories=BookCategory::all();
     if ($request->isMethod('POST')) {
       $data = $request->all();
       // dd($data);
@@ -40,13 +42,14 @@ class BookController extends Controller
         ALert::error('Lỗi', 'Thiếu Ảnh');
         return redirect()->back();
       }
-      
+
     }
-    return view('books.create', compact('categories'));
+    return view('books.create', compact('categories', 'book_categories'));
   }
   public function edit(Request $request, $id){
     $book=Book::find($id);
     $categories=Category::all();
+    $book_categories=BookCategory::all();
     if($request->isMethod('POST')){
       $data=$request->all();
       if(count(Category::where('id',$data['category_id'])->get())==0){
@@ -66,9 +69,9 @@ class BookController extends Controller
         ALert::error('Lỗi', 'Thiếu Ảnh');
         return redirect()->back();
       }
-      
+
     }
-    return view('books.edit', compact('book', 'categories'));
+    return view('books.edit', compact('book', 'book_categories'));
   }
   public function delete(Request $request, $id){
     Book::find($id)->delete();
@@ -80,5 +83,5 @@ class BookController extends Controller
     Book::whereIn('id', explode(",",$data['ids']))->delete();
     return response()->json(['status' => true]);
   }
-  
+
 }

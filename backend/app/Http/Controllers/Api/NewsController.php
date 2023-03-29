@@ -14,9 +14,9 @@ class NewsController extends Controller
         }
         return response()->json(['statusCode'=>200, 'data'=>['news'=>$news]]);
     }
-    public function detail(Request $request){
-        $data=$request->all();
-        $news=News::find($data['id']);
+    public function detail(News $news, Request $request){
+//        $data=$request->all();
+//        $news=News::find($data['id']);
         $news['description']=html_entity_decode($news['description']);
         return response()->json(['statusCode'=>200, 'data'=>['news'=>$news]]);
     }
