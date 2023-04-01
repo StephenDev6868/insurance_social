@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b7e6758a.css",
+    "main.js": "/static/js/main.a4db3581.js",
+    "static/js/787.4c9d15e8.chunk.js": "/static/js/787.4c9d15e8.chunk.js",
+    "static/media/banner.png": "/static/media/banner.ec0cb444dcd237e0cca8.png",
+    "static/media/item-1.png": "/static/media/item-1.d35f872d85b2e009e6da.png",
+    "static/media/ItemService.png": "/static/media/ItemService.95e0be00206dff4fcebd.png",
+    "static/media/post_featered.png": "/static/media/post_featered.a6bce08326bc43f8659c.png",
+    "static/media/item.png": "/static/media/item.ab580bb162874390b491.png",
+    "static/media/item-2.png": "/static/media/item-2.90dba566710a71cf101d.png",
+    "static/media/event.png": "/static/media/event.80474a6eaca61b282af7.png",
+    "static/media/banner-auth.png": "/static/media/banner-auth.a26783e229040b5368a6.png",
+    "static/media/eventItem.png": "/static/media/eventItem.c47dcac5fb57233f2695.png",
+    "static/media/course_data.png": "/static/media/course_data.7536b106bb4ee0f6d641.png",
+    "static/media/lesson.png": "/static/media/lesson.4f6a342580350b438a3e.png",
+    "static/media/item-hot.png": "/static/media/item-hot.cc672d3d6f81ff1a9050.png",
+    "static/media/category.png": "/static/media/category.bcc5304197fb658cd50a.png",
+    "static/media/logo.png": "/static/media/logo.3906717f07ed27d5d543.png",
+    "index.html": "/index.html",
+    "main.b7e6758a.css.map": "/static/css/main.b7e6758a.css.map",
+    "main.a4db3581.js.map": "/static/js/main.a4db3581.js.map",
+    "787.4c9d15e8.chunk.js.map": "/static/js/787.4c9d15e8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b7e6758a.css",
+    "static/js/main.a4db3581.js"
+  ]
+}
